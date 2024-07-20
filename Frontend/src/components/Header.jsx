@@ -1,5 +1,6 @@
 import React from 'react'
 import { GiHamburgerMenu } from "react-icons/gi";
+import {Link} from 'react-router-dom'
 function Header() {
   return (
    <div>
@@ -16,7 +17,9 @@ function Header() {
             
         </ul>
       </div>
+      <Link to={'/signin'}>
       <div className="hidden sm:inline border-2 rounded-md border-orange-800 px-3 py-2 font-semibold hover:bg-orange-800 duration-200">Sign In</div>
+      </Link>
         <div className="hidden sm:inline">
             <img className='h-10 w-10 rounded-full' src="https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1" alt="" />
         </div>
