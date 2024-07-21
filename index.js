@@ -2,10 +2,13 @@ import express from "express"
 import dotenv from 'dotenv'
 import mongoose from "mongoose"
 import authRouter from "./routes/auth.route.js"
+import userRouter from './routes/user.route.js'
+import cookieParser from "cookie-parser"
 // import { errorHandler } from "./utils/error.js"
 dotenv.config()
 const app=express()
 app.use(express.json())
+app.use(cookieParser())
 // console.log(process.env.MONGODB_URI);
 const connectDb=async ()=>{
     
@@ -22,6 +25,7 @@ app.get('/',(req,res)=>{
     res.json({message:"http://localhost:3000/"})
 })
 app.use("/api/auth",authRouter)
+app.use("/api/user",userRouter)
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log(`server is listening on port ${process.env.PORT}`)

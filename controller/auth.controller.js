@@ -2,6 +2,7 @@ import { errorHandler } from "../utils/error.js"
 import User from "../model/user.model.js"
 import bcryptjs from 'bcryptjs'
 import jwt from "jsonwebtoken"
+import cookieParser from "cookie-parser"
 export const signup=async (req,res,next)=>{
 
     const {username,email,password}=req.body
@@ -72,4 +73,17 @@ export const signin =async (req,res)=>{
        console.log(error);
     }
    
+}
+
+
+export const signout=async (req,res,next)=>{
+    
+     try {
+        
+         res.status(200).clearCookie('access_token').json({message:"Signout successfull",success:true}) 
+
+     } catch (error) {
+        console.log(error);
+     }
+
 }
