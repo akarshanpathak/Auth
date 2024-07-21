@@ -33,14 +33,18 @@ function Header() {
   return (
    <div>
      <div className='bg-slate-900 text-white relative py-4 flex justify-between sm:justify-around pt-6 px-3' >
-      <div>
-      <span className='mx-4 px-4 py-2   text-2xl font-bold font- bg-orange-800 rounded-xl text-center '>Auth</span>
+      <div><Link to='/'>
+      <span className='mx-4 px-4 py-2   text-2xl font-bold font- bg-orange-800 rounded-xl text-center '>Auth</span>   </Link>
       </div>
       <div className="hidden sm:inline">
         <ul className='flex justify-between'>
+            <Link to='/'>
             <li className='mx-3 text-xl text-gray-200 font-normal hover:underline hover:text-gray-300 px-2 font-sans'>Home</li>
+            </Link>
             <li className='mx-3 text-xl text-gray-200 font-normal hover:underline hover:text-gray-300 px-2 font-sans'>About</li>
+            <Link to='https://github.com/akarshanpathak'>
             <li className='mx-3 text-xl text-gray-200 font-normal hover:underline hover:text-gray-300 px-2 font-sans duration-300 '>Pojects</li>
+            </Link>
             
             
         </ul>

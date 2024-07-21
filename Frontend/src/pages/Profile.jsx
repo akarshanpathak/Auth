@@ -121,10 +121,10 @@ function Profile() {
         <div className="text-xl rounded-lg bg-red-700 px-2">{imageFileUploadError && imageFileUploadError}  </div>
         <input type="file" className='hidden' accept='image/*' name="" id=""  ref={fileRef} onChange={handleImageChange}/>
         <h2 className='text-xl mb-3 underline font-semibold '>{currentUser.username}</h2>
-        <div className=" mt-3">
+        <div className="flex justify-center items-center mt-3">
         <label htmlFor="username" className='text-2xl font-semibold'>Username: </label><input defaultValue={currentUser.username} onChange={handleChange} type="text" className='outline-none border-orange-800 border-2 bg-transparent p-3 mt-2 rounded-xl ' id='username' />
         </div> 
-        <div className="ml-12 mt-3">
+        <div className="flex justify-center items-center ml-12 mt-3">
         <label htmlFor="email" className='text-2xl font-semibold'>Email: </label><input defaultValue={currentUser.email} onChange={handleChange} type="email" className='outline-none border-orange-800 border-2 bg-transparent p-3 mt-2 rounded-xl ' id='email' />
         </div>
         <div className=" mt-3">
