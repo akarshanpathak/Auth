@@ -55,3 +55,13 @@ export const updateUser=async (req,res,next)=>{
         console.log(error);
     }
 }
+
+export const getUsers=async(req,res,next)=>{
+    try {
+        const users=await User.find()
+       
+        await  res.status(201).json(users)
+    } catch (error) {
+        console.log("Error in get users",error);
+    }
+}

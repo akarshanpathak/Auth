@@ -16,6 +16,11 @@ const userSchema=new mongoose.Schema({
         unique:true,
         type:String,
     },
+    phoneNumber:{
+        required:true,
+        
+        type:String,
+    },
     profilePicture:{
         type:String,
         default:"https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1"

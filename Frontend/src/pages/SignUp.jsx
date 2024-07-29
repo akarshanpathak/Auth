@@ -51,6 +51,7 @@ function SignUp() {
                 <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id="username" placeholder='Enter your username' type="text" />
                 <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id='email' placeholder='Enter your email' type="email" />
                 <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id='password' placeholder='Enter your password' type="password" />
+                <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id='phoneNumber' placeholder='Enter your mobile number' type="text" />
                 <button type='submit' className=' mt-5 border-2 rounded-md border-orange-800 px-3 py-2 font-semibold hover:bg-orange-800 duration-200'>Sign up</button>
                 <div className="mt-4 font-semibold font-sans">
                     Already have an account ?<Link to='/signin'>

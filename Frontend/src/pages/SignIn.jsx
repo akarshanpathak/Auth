@@ -6,9 +6,8 @@ import { signInFailure,signInSuccess,signInStart } from '../redux/userSlice'
 function SignIn() {
     // access allalone
     // const {currentUser,error,loading}=useSelector(state=>state.user)
-    const currentUser=useSelector(state=>state.currentUser)
-    const loading=useSelector(state=>state.loading)
-    const error=useSelector(state=>state.error)
+    const {currentUser,error,loading}=useSelector(state=>state.user)
+    
     
     const navigate=useNavigate()
     const dispatch=useDispatch()
@@ -41,14 +40,14 @@ function SignIn() {
                 navigate('/')
 
             }
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             console.log(error)
         }
     }
-    if(currentUser){
-        console.log("current user",currentUser);
-    }
+    // if(currentUser){
+    //     console.log("current user",currentUser);
+    // }
   return (
     <div className='bg-slate-900 flex flex-col sm:flex-row text-white h-screen'>
      
@@ -65,7 +64,7 @@ function SignIn() {
                 
                 <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id='email' placeholder='Enter your email' type="email" />
                 <input onChange={handleOnChange}  className='outline-none m-2 py-4 px-10 rounded-lg bg-transparent border-2 border-orange-900' id='password' placeholder='Enter your password' type="password" />
-                <button type='submit' className=' mt-5 border-2 rounded-md border-orange-800 px-3 py-2 font-semibold hover:bg-orange-800 duration-200'>Sign In</button>
+                <button disabled={loading} type='submit' className={` mt-5 border-2 rounded-md border-orange-800 px-3 py-2 font-semibold hover:bg-orange-800 duration-200 ${loading?"opacity-50":""}`}>Sign In</button>
                 <div className="mt-4 font-semibold font-sans">
                     Don't have an account ?<Link to='/signup'>
                     <span className='ml-2 text-blue-400 hover:underline duration-100'>Sign up</span>

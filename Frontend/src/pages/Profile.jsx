@@ -3,9 +3,11 @@ import { useSelector ,useDispatch} from 'react-redux'
 import { useRef } from 'react'
 import {getDownloadURL, getStorage,ref, uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase'
-import { updateSuccess } from '../redux/userSlice'
+import { signOutSuccess, updateSuccess } from '../redux/userSlice'
+import { useNavigate } from 'react-router-dom'
 function Profile() {
     const {currentUser}=useSelector(state=>state.user)
+    const navigate=useNavigate()
     const dispatch=useDispatch()
     const [imageFile,setImageFile]=useState(null)
     const [imageFileUrl,setImageFileUrl]=useState(null)
@@ -108,6 +110,20 @@ function Profile() {
         setUpdateUserError(error.message)
       }
     }
+    const handleSignout=async()=>{
+      try {
+        const res=await fetch("/api/auth/signout",{
+          method:'PUT'
+        })
+        if(res.ok){
+          dispatch(signOutSuccess())
+          navigate('/signin')
+          // console.log("signout successfull");
+        }
+      } catch (error) {
+        
+      }
+    }
   return (
     <form onSubmit={handleSubmit} className='h-screen bg-slate-900 text-white flex justify-center pt-4'>
       <div className='flex flex-col items-center'>
@@ -117,7 +133,7 @@ function Profile() {
         }}>
             <img className='h-40 w-40 rounded-full' src={(imageFileUrl && imageFileUrl) || (currentUser && currentUser.profilePicture)} alt="" />
         </div>
-        {imageFileUploadProgress && <div className='p-2  text-xl'>uploaded-{imageFileUploadProgress}%</div>}
+        {imageFileUploadProgress && <div className='p-2  text-xl'>uploaded-{Math.floor(imageFileUploadProgress)}%</div>}
         <div className="text-xl rounded-lg bg-red-700 px-2">{imageFileUploadError && imageFileUploadError}  </div>
         <input type="file" className='hidden' accept='image/*' name="" id=""  ref={fileRef} onChange={handleImageChange}/>
         <h2 className='text-xl mb-3 underline font-semibold '>{currentUser.username}</h2>
@@ -130,8 +146,11 @@ function Profile() {
         <div className=" mt-3">
         <label htmlFor="password" className='text-2xl font-semibold'>Password: </label><input  onChange={handleChange} type="password" className='outline-none border-orange-800 border-2 bg-transparent p-3 mt-2 rounded-xl ' id='password' placeholder='***********'/>
         </div>
-        <button type='submit' disabled={imageFileUploadLoading} className='mt-4 ml-14 font-semibold font-sans border-2 border-orange-800 px-3 py-2 rounded-xl hover:bg-orange-900 duration-200'>UPDATE PROFILE</button>
-       {updateUserError &&  <div className="text-red-900 mt-3 text-xl font-semibold">{updateUserError}</div>}
+        <div className="flex gap-1">
+        <button type='submit' disabled={imageFileUploadLoading} className={`mt-4 ml-14 ${imageFileUploadProgress?"opacity-50":""} font-semibold font-sans border-2 border-orange-800 px-3 py-2 rounded-xl hover:bg-orange-900 duration-200`}>UPDATE PROFILE</button>
+        <button type='submit' onClick={handleSignout} disabled={imageFileUploadLoading} className={`mt-4 ml-14 ${imageFileUploadProgress?"opacity-50":""} font-semibold font-sans border-2 border-orange-800 px-3 py-2 rounded-xl hover:bg-orange-900 duration-200`}>SIGN OUT</button>
+        </div>
+       {updateUserError &&  <div className="text-red-900 mt-3 text-xl bg-slate-900 font-semibold">{updateUserError}</div>}
       </div>
     </form>
   )

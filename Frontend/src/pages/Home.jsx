@@ -1,23 +1,25 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Users from '../components/Users'
+import Chat from '../components/Chat'
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 function Home() {
 const {currentUser}=useSelector(state=>state.user)
-  return (
-    <div className='h-screen flex flex-col justify-center items-center  bg-slate-900 text-white'>
-         <div className="h-[70%] w-[70%] ">
-         <div className="flex justify-center items-center"> <span className='text-4xl  text-orange-700'>Welcome</span>  </div>
-        <div className=' '>
-        {currentUser && <div className='mx-auto flex justify-center mt-10 text-6xl font-sans'>
-           {currentUser.username}
-          </div>}
-        <Link to='/profile'>
-        <button className='border-orange-700 border-2 rounded-xl hover:bg-orange-700 duration-200 mx-auto p-3 mt-5 ml-20 font-semibold'>Update Your Profile</button>
-        </Link>
-        </div>
-         </div>
+const {selectedUser}=useContext(UserContext)
 
-         
+  return (
+    <div className=' scrollbar  bg-slate-900 text-white'>
+      <h2 className='font-semibold font-sans text-2xl underline text-center'>Available Users</h2>
+     <div className="flex h-screen justify-center">
+        <div className='sm:w-[30%] '>
+        <Users/>
+        </div>
+        <div className='hidden sm:w-[70%] sm:inline '>
+        <Chat selectedUser={selectedUser}/>  
+        </div>  
+     </div>
     </div>
   )
 }
