@@ -4,6 +4,7 @@ import { useSelector ,useDispatch} from 'react-redux'
 import { useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
 function Users() {
   const navigate=useNavigate()
   const {selectedUser,setSelectedUser,showChat,setShowChat}=useContext(UserContext)
@@ -36,17 +37,17 @@ function Users() {
      
     <div className={`border-2 ${loggedInUser?"":"hidden"}  bg-slate-800 scrollbar  mx-auto pt-4 mt-4 max-h-[77%] overflow-y-scroll`}>
       {
-         loggedInUser && loggedInUser.map((val,idx)=>
+         loggedInUser? loggedInUser.map((val,idx)=>
         
-             <div key={val._id} onClick={()=>{
-                 setSelectedUser(val)
-                 setShowChat(true)
-                 navigate('/chat')
-             }} >
-              <User image={val.profilePicture}  username={val.username} email={val.email}/>
-             </div>
-         
-        )
+          <div key={val._id} onClick={()=>{
+              setSelectedUser(val)
+              setShowChat(true)
+              navigate('/chat')
+          }} >
+           <User image={val.profilePicture}  username={val.username} email={val.email}/>
+          </div>
+      
+     ):<Loading/>
       }
     </div>
   )

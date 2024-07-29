@@ -1,38 +1,63 @@
-import React from 'react'
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Chat from './components/Chat'
-import Home from './pages/Home'
-import SignUp from './pages/SignUp'
-import SignIn from './pages/SignIn'
-import Profile from './pages/Profile'
-import { useContext } from 'react'
-import { UserContext } from './context/UserContext'
-import NotFound from './components/NotFound'
-import About from './pages/About'
+import React, { useContext, lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import SignUp from "./pages/SignUp";
+import Loading from "./components/Loading";
+import SignIn from "./pages/SignIn";
+import Profile from "./pages/Profile";
+import NotFound from "./components/NotFound";
+import About from "./pages/About";
+import RouteNotFound from "./components/RouteNotFound";
+import PrivateRoute from "./components/PrivateRoute";
+import { UserContext } from "./context/UserContext";
+
+// Lazy-loaded components
+const Home = lazy(() => import("./pages/Home"));
+const Chat = lazy(() => import("./components/Chat"));
+
 function App() {
-  const {selectedUser}=useContext(UserContext)
+  const { currentUser } = useSelector((state) => state.user);
+  const { selectedUser } = useContext(UserContext);
+
   return (
-    <div className='bg-slate-900'>
+    <div className="bg-slate-900 min-h-screen">
       <BrowserRouter>
-        <Header/>
+        <Header />
         <Routes>
-          
-          <Route path='/' element={<Home/>}/>
-          <Route path='/signup' element={<SignUp/>}/>
-          <Route path='/signin' element={<SignIn/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/about' element={<About/>}/>
-          {
-            selectedUser?<Route path='/chat' element={<Chat  selectedUser={selectedUser}/>}/>:<Route path='/chat' element={<NotFound  />}/>
-          }
-          
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Home />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/chat"
+            element={
+              selectedUser ? (
+                <Suspense fallback={<Loading />}>
+                  <Chat selectedUser={selectedUser} />
+                </Suspense>
+              ) : (
+                <NotFound />
+              )
+            }
+          />
+          <Route path="*" element={<RouteNotFound />} />
         </Routes>
-        <Footer/>  
+        <Footer />
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
