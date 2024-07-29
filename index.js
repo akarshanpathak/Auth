@@ -25,9 +25,9 @@ const connectDb=async ()=>{
 }
 connectDb()
 app.use(express.json())
-app.get('/',(req,res)=>{
-    res.json({message:"http://localhost:3000/"})
-})
+// app.get('/',(req,res)=>{
+//     res.json({message:"http://localhost:3000/"})
+// })
 app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/message",messageRouter)
