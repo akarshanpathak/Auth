@@ -3,13 +3,13 @@ import User from "../model/user.model.js"
 import bcryptjs from 'bcryptjs'
 import jwt from "jsonwebtoken"
 import cookieParser from "cookie-parser"
-import Otp from "../model/user.otp.model.js"
+// import Otp from "../model/user.otp.model.js"
 import otpGenerator from 'otp-generator'
 import twilio from 'twilio'
 export const signup=async (req,res,next)=>{
 
     const {username,email,password,phoneNumber}=req.body
-    if(!username || !email || !password || !phoneNumber || phoneNumber=='' || username=='' || password=='' || email==''){
+    if(!username || !email || !password ||  username=='' || password=='' || email==''){
         return res.status(400).json({message:"All fields are required",success:false})
     }
     
@@ -26,8 +26,8 @@ export const signup=async (req,res,next)=>{
         const newUser=new User({
             username,
             email,
-            password:hashedPassword,
-            phoneNumber
+            password:hashedPassword
+            
         })
         await newUser.save()
         console.log(newUser._doc);
@@ -93,59 +93,59 @@ export const signout=async (req,res,next)=>{
 }
 
 
-export const signinWithPhoneNumber=async(req,res,next)=>{
+// export const signinWithPhoneNumber=async(req,res,next)=>{
 
-  const {phoneNumber}=req.body
-  if(!phoneNumber || phoneNumber==''){
-    return res.status(401).json({message:"Please enter your phone number"})
-  }
-  const twilioClient=new twilio(process.env.TWILIO_ACCOUNT_SID,process.env.TWILIO_AUTH_TOKEN)
+//   const {phoneNumber}=req.body
+//   if(!phoneNumber || phoneNumber==''){
+//     return res.status(401).json({message:"Please enter your phone number"})
+//   }
+//   const twilioClient=new twilio(process.env.TWILIO_ACCOUNT_SID,process.env.TWILIO_AUTH_TOKEN)
 
-  const findPhoneNumber=await Otp.findOne({phoneNumber})
+//   const findPhoneNumber=await Otp.findOne({phoneNumber})
  
-    try {
-        if(!findPhoneNumber){
-        const otp=otpGenerator.generate(4,{upperCaseAlphabets:false,lowerCaseAlphabets:false,
-            specialChars:false
-          })
+//     try {
+//         if(!findPhoneNumber){
+//         const otp=otpGenerator.generate(4,{upperCaseAlphabets:false,lowerCaseAlphabets:false,
+//             specialChars:false
+//           })
     
-        const newOtp=new Otp({
-            phoneNumber,
-            otp
-        })
-        const sendOtp=await twilioClient.messages.create({
-            body:"Your verification OTP is "+otp,
-            from:process.env.TWILIO_PHONE_NUMBER,
-            to:phoneNumber
-        })
-        // console.log("otp send successfully",sendOtp)
-        await newOtp.save()
-        res.status(201).json({message:"Otp send successfully",success:true})
-        return
-    }
+//         const newOtp=new Otp({
+//             phoneNumber,
+//             otp
+//         })
+//         const sendOtp=await twilioClient.messages.create({
+//             body:"Your verification OTP is "+otp,
+//             from:process.env.TWILIO_PHONE_NUMBER,
+//             to:phoneNumber
+//         })
+//         // console.log("otp send successfully",sendOtp)
+//         await newOtp.save()
+//         res.status(201).json({message:"Otp send successfully",success:true})
+//         return
+//     }
     
    
  
-    const otp=otpGenerator.generate(4,{upperCaseAlphabets:false,lowerCaseAlphabets:false,
-        specialChars:false
-    })
+//     const otp=otpGenerator.generate(4,{upperCaseAlphabets:false,lowerCaseAlphabets:false,
+//         specialChars:false
+//     })
 
-    const updatedOtp=await Otp.findOneAndUpdate({phoneNumber:phoneNumber},{
-        $set:{
-            phoneNumber,otp
-        }
-    },{new:true})
-    const sendOtp=await twilioClient.messages.create({
-        body:"Your verification OTP is "+otp,
-        from:process.env.TWILIO_PHONE_NUMBER,
-        to:phoneNumber
-    })
-    console.log("otp send successfully",sendOtp)
-    // console.log(updatedOtp);
-    res.status(201).json(updatedOtp)
-}catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error", success: false })
-}
+//     const updatedOtp=await Otp.findOneAndUpdate({phoneNumber:phoneNumber},{
+//         $set:{
+//             phoneNumber,otp
+//         }
+//     },{new:true})
+//     const sendOtp=await twilioClient.messages.create({
+//         body:"Your verification OTP is "+otp,
+//         from:process.env.TWILIO_PHONE_NUMBER,
+//         to:phoneNumber
+//     })
+//     console.log("otp send successfully",sendOtp)
+//     // console.log(updatedOtp);
+//     res.status(201).json(updatedOtp)
+// }catch (error) {
+//     console.log(error);
+//     return res.status(500).json({ message: "Internal server error", success: false })
+// }
 
-}
+// }
