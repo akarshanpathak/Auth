@@ -63,7 +63,7 @@ function Header() {
      {currentUser &&  <div onClick={()=>{
       setShowProfile((prev)=>!prev)
      }} className="hidden  sm:flex sm:justify-end">
-          <img className='h-10 w-10 rounded-full' src="https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1" alt="" />
+          <img className='h-10 w-10 rounded-full' src={currentUser.profilePicture || "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1"} alt="" />
 
       </div>}
       {

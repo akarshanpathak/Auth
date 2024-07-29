@@ -18,8 +18,9 @@ const {selectedUser}=useContext(UserContext)
      <div className="flex h-screen justify-center">
         <div className='sm:w-[30%] '>
         <Suspense fallback={<Loading/>}>
-        <Users/>
+        <Users/> 
         </Suspense>
+        {/* <Loading/> */}
         </div>
         <div className='hidden sm:w-[70%] sm:inline '>
         <Chat selectedUser={selectedUser}/>  
