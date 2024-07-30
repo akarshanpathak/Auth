@@ -4,16 +4,17 @@ import {Link} from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { signOutSuccess } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
+
 function Header() {
   const dispatch=useDispatch()
   const navigate=useNavigate()
-
+  
   const [showHamburger,setShowHamburger]=useState(false)
   const [showProfile,setShowProfile]=useState(false)
   const {currentUser}=useSelector(state=>state.user)
   const handleMenu=()=>{
     setShowHamburger((prev)=>!prev)
-    console.log(showHamburger)
+    // console.log(showHamburger)
     // console.log("helloo");
   }
   const handleSignout=async()=>{
@@ -60,7 +61,7 @@ function Header() {
       }
       </Link>
      <div className="flex flex-col justify-end">
-     {currentUser &&  <div onClick={()=>{
+     {(currentUser ) &&  <div onClick={()=>{
       setShowProfile((prev)=>!prev)
      }} className="hidden  sm:flex sm:justify-end">
           <img className='h-10 w-10 rounded-full' src={currentUser.profilePicture || "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1"} alt="" />

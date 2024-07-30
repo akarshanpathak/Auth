@@ -69,6 +69,7 @@ export const signin =async (req,res)=>{
     .status(200)
     .cookie("access_token",token,{
         httpOnly: true,
+        
     })
     .json(
         rest

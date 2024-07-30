@@ -11,6 +11,7 @@ const Users=lazy(()=>import('../components/Users'))
 function Home() {
 const {currentUser}=useSelector(state=>state.user)
 const {selectedUser}=useContext(UserContext)
+console.log("In home Component");
 
   return (
     <div className=' scrollbar  bg-slate-900 text-white'>

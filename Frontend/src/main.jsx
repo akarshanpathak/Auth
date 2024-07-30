@@ -8,13 +8,17 @@ import {PersistGate} from "redux-persist/integration/react"
 import {persistor} from './redux/Store.js'
 import { UserContextProvider } from './context/UserContext.jsx'
 import { SocketContextProvider } from './context/SocketContext.jsx'
+import PrivateRoute from './components/PrivateRoute.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserContextProvider>
     <Provider store={store}>
    <PersistGate persistor={persistor}>
     <SocketContextProvider>
-    <App />
+     
+
+       <App />
+     
    </SocketContextProvider>
    </PersistGate>
     </Provider>

@@ -12,21 +12,25 @@ import About from "./pages/About";
 import RouteNotFound from "./components/RouteNotFound";
 import PrivateRoute from "./components/PrivateRoute";
 import { UserContext } from "./context/UserContext";
-
+import Cookies from 'js-cookie'
 // Lazy-loaded components
 const Home = lazy(() => import("./pages/Home"));
 const Chat = lazy(() => import("./components/Chat"));
+console.log("app component called");
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
   const { selectedUser } = useContext(UserContext);
-
+  const token=Cookies.get('access_token')
+    // console.log(token);
   return (
     <div className="bg-slate-900 min-h-screen">
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route element={<PrivateRoute />}>
+          <Route path="/signin" element={<SignIn />} />
+        
+            <Route element={<PrivateRoute/>}>
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/"
@@ -36,9 +40,9 @@ function App() {
                 </Suspense>
               }
             />
-          </Route>
+            </Route>
+       
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
           <Route path="/about" element={<About />} />
           <Route
             path="/chat"

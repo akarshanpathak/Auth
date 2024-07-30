@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
           userId: currentUser._id
         }
       });
-      console.log(socketInstance);
+      // console.log(socketInstance);
       setSocket(socketInstance);
 
       return () => {
@@ -23,7 +23,7 @@ export const SocketContextProvider = ({ children }) => {
       };
     } else {
       if (socket) {
-        console.log(socket);
+        // console.log(socket);
         socket.close();
         setSocket(null);
       }
