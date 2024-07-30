@@ -24,9 +24,13 @@ export const sendMessage=async (req,res,next)=>{
         })
         if(newMessage){
             conversation.messages.push(newMessage._id)
+            console.log(newMessage);
         }
         await Promise.all([conversation.save(),newMessage.save()])
-        
+        const receiverSocketId=getUserSocketId(receiverId)
+     if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage",newMessage );
+      }
         res.status(201).json({message:"Message sent successfully",success:true})
     } catch (error) {
         console.log("Error in send message",error)
@@ -46,10 +50,7 @@ export const getMessage=async(req,res,next)=>{
      }
      
      const data=await conversation.populate('messages')
-     const receiverSocketId=getUserSocketId(receiverId)
-     if (receiverSocketId) {
-        io.to(receiverSocketId).emit("newMessage", data.messages);
-      }
+     
      res.status(201).json(data.messages)
     //  console.log(data.messages);
  

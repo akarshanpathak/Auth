@@ -10,7 +10,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser) {
-      const socketInstance = io('http://localhost:3000', {
+      const socketInstance = io('https://auth-2-srv0.onrender.com/', {
         query: {
           userId: currentUser._id
         }

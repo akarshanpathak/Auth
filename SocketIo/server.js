@@ -8,7 +8,7 @@ export const server=http.createServer(app)
  
 export const io=new Server(server,{
     cors:{
-        origin:'http://localhost:5173',
+        origin:'https://auth-2-srv0.onrender.com/',
         methods:["GET","POST","PUT"]
     }
 })

@@ -8,7 +8,7 @@ import otpGenerator from 'otp-generator'
 import twilio from 'twilio'
 export const signup=async (req,res,next)=>{
 
-    const {username,email,password,phoneNumber}=req.body
+    const {username,email,password}=req.body
     if(!username || !email || !password ||  username=='' || password=='' || email==''){
         return res.status(400).json({message:"All fields are required",success:false})
     }
