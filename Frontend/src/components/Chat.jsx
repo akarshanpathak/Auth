@@ -51,6 +51,7 @@ function Chat({ selectedUser }) {
 
   if (selectedUser) {
     return (
+     <>
       <div className='bg-slate-900 text-white h-screen border-b-2 sm:overflow-y-scroll scrollbar'>
         <div className="mt-4 py-2 border-t-2 flex justify-around items-center border-b-2">
           <img className='w-12 h-12 rounded-full' src={selectedUser.profilePicture} alt="" />
@@ -77,7 +78,8 @@ function Chat({ selectedUser }) {
         </div>
        
       </div>
-    );
+     </>
+    )
   }
   return (
     <div className='h-[90%] flex justify-center items-center scrollbar overflow-y-scroll'>

@@ -15,6 +15,7 @@ export const SocketContextProvider = ({ children }) => {
           userId: currentUser._id
         }
       });
+      
       // console.log(socketInstance);
       setSocket(socketInstance);
 
