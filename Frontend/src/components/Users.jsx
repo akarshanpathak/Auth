@@ -40,7 +40,7 @@ function Users() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen bg-slate-900 text-white">
-        <h1 className="text-xl font-semibold">Error: {error}</h1>
+        <h1 className="text-xl font-semibold">Error: {error.message}</h1>
       </div>
     );
   }
